@@ -67,7 +67,7 @@ font-5 = WenQuanYi Micro Hei:pixelsize=12;2
 ;modules-left = bspwm
 modules-left = mpd i3
 modules-center = xwindow
-modules-right = github weather filesystem memory cpu wlan eth battery temperature date
+modules-right = github weather wlan eth memory cpu temperature filesystem battery date
 
 separator = |
 tray-position = ${env:TRAY_POS:}
