@@ -53,6 +53,7 @@ module-margin-left = 1
 module-margin-right = 1
 
 ;出现 polybar|warn:  Dropping unmatched character,运行以下命令
+; install ttf-font-awesome terminus-font
 ; sudo rm /etc/fonts/conf.d/70-no-bitmaps.conf
 ; sudo fc-cache -f -v
 ; 解决
