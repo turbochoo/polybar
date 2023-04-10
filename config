@@ -14,6 +14,7 @@
 ;
 ;   The README contains a lot of information
 ;
+;
 ;==========================================================
 
 [colors]
@@ -30,7 +31,7 @@ alert = #bd2c40
 [bar/bar1]
 monitor = ${env:MONITOR:eDP}
 width = 100%
-height = 20
+height = 25
 ;offset-x = 1%
 ;offset-y = 1%
 radius = 0.0
@@ -51,12 +52,16 @@ padding-right = 1
 module-margin-left = 1
 module-margin-right = 1
 
-font-0 = Droid Sans Mono:style=Regular:size=12;1
-font-1 = Fira Code Regular Nerd Font Complete:size=12;2
-font-2 = FontAwesome:pixelsize=12;2
-font-3 = Iosevka Nerd Font Complete:size=12;3
-font-4 = Iosevka Nerd Font Complete:size=12:weight=bold;3
-font-5 = WenQuanYi Micro Hei Mono:size=12;2
+;出现 polybar|warn:  Dropping unmatched character,运行以下命令
+; sudo rm /etc/fonts/conf.d/70-no-bitmaps.conf
+; sudo fc-cache -f -v
+; 解决
+font-0 = terminus:pixelsize=16;1
+font-1 = Font Awesome 6 Free:pixelsize=16;2
+font-2 = Font Awesome 6 Free Solid:pixelsize=16;2
+font-3 = Font Awesome 6 Brands:pixelsize=16;2
+font-4 = Wuncon Siji:size=13;1
+font-5 = WenQuanYi Micro Hei:size=13;2
 
 ;modules-left = bspwm
 modules-left = mpd i3
@@ -65,7 +70,7 @@ modules-right = github weather filesystem memory cpu wlan eth battery temperatur
 
 separator = |
 tray-position = ${env:TRAY_POS:}
-tray-padding = 2
+tray-padding = 1
 ;tray-background = #0063ff
 
 ;wm-restack = bspwm
@@ -126,7 +131,7 @@ label-unmounted = %mountpoint% not mounted
 label-unmounted-foreground = ${colors.foreground-alt}
 
 [module/bspwm]
-type = internal/bspwm
+type = internal/i3
 
 label-focused = %icon%
 label-focused-background = ${colors.background-alt}
@@ -206,6 +211,25 @@ inherit = module/xbacklight
 type = internal/backlight
 card = intel_backlight
 
+[module/temperature]
+type = internal/temperature
+thermal-zone = 0
+warn-temperature = 60
+
+format = <ramp> <label>
+format-underline = #f50a4d
+format-warn = <ramp> <label-warn>
+format-warn-underline = ${self.format-underline}
+format-prefix = ︁
+label = %temperature-c%
+label-warn = %temperature-c%
+label-warn-foreground = ${colors.secondary}
+
+ramp-0 = 
+ramp-1 = 
+ramp-2 = 
+ramp-foreground = ${colors.foreground-alt}
+
 [module/cpu]
 type = internal/cpu
 interval = 2
@@ -225,7 +249,7 @@ label = %percentage_used%%
 [module/wlan]
 type = internal/network
 interface = wlp4s0
-interval = 3.0
+interval = 5.0
 
 format-connected = <ramp-signal> <label-connected>
 format-connected-underline = #9f78e1
@@ -243,22 +267,6 @@ ramp-signal-2 = 
 ramp-signal-3 = 
 ramp-signal-4 = 
 ramp-signal-foreground = ${colors.foreground-alt}
-
-[module/eth]
-type = internal/network
-interface = enp2s0
-interval = 3.0
-
-format-connected-underline = #55aa55
-format-connected-prefix = " "
-format-connected-prefix-foreground = ${colors.foreground-alt}
-label-connected = LAN | ︁ %upspeed% | ︁ %downspeed%
-
-format-disconnected =
-;format-disconnected = <label-disconnected>
-;format-disconnected-underline = ${self.format-connected-underline}
-;label-disconnected = %ifname% disconnected
-;label-disconnected-foreground = ${colors.foreground-alt}
 
 [module/date]
 type = internal/date
@@ -380,24 +388,6 @@ animation-discharging-4 = 
 animation-discharging-foreground = ${colors.foreground-alt}
 animation-discharging-framerate = 750
 
-[module/temperature]
-type = internal/temperature
-thermal-zone = 0
-warn-temperature = 60
-
-format = <ramp> <label>
-format-underline = #f50a4d
-format-warn = <ramp> <label-warn>
-format-warn-underline = ${self.format-underline}
-format-prefix = ︁
-label = %temperature-c%
-label-warn = %temperature-c%
-label-warn-foreground = ${colors.secondary}
-
-ramp-0 = 
-ramp-1 = 
-ramp-2 = 
-ramp-foreground = ${colors.foreground-alt}
 
 [module/powermenu]
 type = custom/menu
