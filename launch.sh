@@ -21,8 +21,11 @@ if type "xrandr"; then
 
     done
     unset IFS  # avoid mega dumb by resetting the IFS
+    monitorCount=$(xrandr --listactivemonitors| grep Monitors|cut -d':' -f2)
+    if [ $monitorCount > 1 ]; then
+        extmon=$(xrandr --listactivemonitors| tail -fn1|cut -d'+' -f2|cut -d' ' -f1)
+        EXT_MON=$extmon polybar bar2 2>&1 | tee -a /tmp/polybar2.log & disown
+    fi
 fi
-polybar bar2 2>&1 | tee -a /tmp/polybar2.log & disown
-
 echo "Ploybar launched..."
 
